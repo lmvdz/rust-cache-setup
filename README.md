@@ -22,9 +22,11 @@ On Windows, use **PowerShell 7.5 or later**:
 ```powershell
 & ./scripts/cargo-cached.ps1 check
 $env:CARGO_CACHE_MODE = 'none'
-& ./scripts/cargo-cached.ps1 test
+& ./scripts/cargo-cached.ps1 test '--' --test-threads=1
 Remove-Item Env:CARGO_CACHE_MODE
 ```
+
+PowerShell script calls consume a bare program separator: quote '--' when forwarding Cargo test/program arguments. Bash uses bare --.
 
 The PowerShell helper sets `$LASTEXITCODE` to Cargo's exit status; automation should check it or explicitly `exit $LASTEXITCODE`. Invoke the script with `&`, and execute the Bash script instead of sourcing it. Helpers preserve Cargo arguments, replace inherited wrapper choices, suppress workspace wrappers, disable incremental compilation, and leave the calling environment intact. They do not edit global Cargo configuration. Caller-provided `--config` wrapper overrides are outside this guarantee: do not supply them.
 

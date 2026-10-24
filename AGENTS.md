@@ -6,6 +6,8 @@ Default to kache 1.2.2. Install only if authorized with `cargo install kache --v
 - PowerShell 7.5+: `& ./scripts/cargo-cached.ps1 check`; inspect `$LASTEXITCODE`.
 - Set `CARGO_CACHE_MODE=none` (or `off`) to run without compiler caching.
 
+Quote the Cargo program separator as '--' in PowerShell calls; a bare separator is consumed by the script binder.
+
 The helpers override inherited `RUSTC_WRAPPER`, `RUSTC_WORKSPACE_WRAPPER`, `CARGO_BUILD_RUSTC_WRAPPER`, and `CARGO_BUILD_RUSTC_WORKSPACE_WRAPPER`, and disable incremental compilation. Do not pass Cargo `--config` wrapper overrides. Execute the Bash helper; do not source it. PowerShell restores the environment when it returns. Do not edit global configuration without explicit authorization.
 
 Optional cargo-reapi 0.2.0 local cache mode requires a Unix host. It has no supported Windows strict local-cache backend; the helpers reject that combination. On a suitable host, install with `cargo install cargo-reapi --version 0.2.0 --locked`, set `CARGO_REAPI_CACHE_DIR` to a local directory, and select `CARGO_CACHE_MODE=reapi`. This is an explicit alternative, not an automatic recommendation for parallel work. Measure first and manage its disk usage separately. Do not install experimental main-branch code or enable remote uploads as part of this kit.

@@ -23,10 +23,9 @@ try {
     $env:CARGO_BUILD_RUSTC_WRAPPER='old-config'; $env:CARGO_BUILD_RUSTC_WORKSPACE_WRAPPER='old-config-workspace'; $env:CARGO_INCREMENTAL='1'
     foreach ($mode in @('kache','none','off','disabled')) {
         $env:CARGO_CACHE_MODE=$mode
-        & $helper test -p 'crate with spaces' -- '--literal'
+        & $helper test -p 'crate with spaces' '--' '--literal'
         Assert ($LASTEXITCODE -eq 17) 'Exit status lost'
-        Assert ($captured.Count -eq 4 -and $captured[1] -eq '-p' -and $captured[2] -eq 'crate with spaces' -and $captured[3] -eq '--literal') 'Argument boundaries lost'
-        # PowerShell function stubs consume the -- terminator; Bash tests assert it literally.
+        Assert ($captured.Count -eq 5 -and $captured[1] -eq '-p' -and $captured[2] -eq 'crate with spaces' -and $captured[3] -eq '--' -and $captured[4] -eq '--literal') 'Argument boundaries lost'
         Assert ($workspaceWrapper -ceq '') 'Workspace wrapper not suppressed'
         Assert ($incremental -eq '0') 'Incremental not disabled'
         if ($mode -eq 'kache') {
