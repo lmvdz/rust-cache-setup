@@ -1,0 +1,5 @@
+# Optional Unix-only cargo-reapi 0.2.0 local cache; not for Windows.
+export CARGO_REAPI_BACKEND=cache
+export CARGO_REAPI_CACHE_DIR="$HOME/.cache/cargo-reapi"
+# Manage this store's disk usage separately from kache.
+# CARGO_CACHE_MODE=reapi bash scripts/cargo-cached.sh check

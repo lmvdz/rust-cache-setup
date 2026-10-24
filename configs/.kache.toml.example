@@ -1,0 +1,18 @@
+# kache 1.2.2 project configuration. Conservative local-only bounded store.
+# The helper selects this file by absolute path and isolates host configuration.
+[cache]
+local_max_size = "4GiB"
+event_log_max_size = "16MiB"
+local_only = true
+auto_gc = true
+scheduler = true
+scheduler_memory_pressure = true
+cache_executables = false
+adaptive_incremental = false
+seed_incremental = false
+preserve_incremental = false
+seed_new_targets = false
+auto_clean_orphaned_targets = false
+auto_clean_idle_targets_days = 0
+auto_clean_unused_units_days = 0
+auto_recover_targets = false
